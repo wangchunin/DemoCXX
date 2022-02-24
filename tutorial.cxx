@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "Tutorial.h"
+#include "TutorialConfig.h"
 #include "log_manager.h"
 #ifdef USE_MYMATH
 #include "MathFunctions.h"

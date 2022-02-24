@@ -3,7 +3,8 @@
 set(ZLOG_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/zlog)
 set(ZLOG_LIBRARY ${ZLOG_SOURCE_DIR}/src/libzlog.a)
 add_custom_target(build_zlog ALL
-    COMMAND ${CMAKE_MAKE_PROGRAM}
+    # 加入交叉编译参数
+    COMMAND ${CMAKE_MAKE_PROGRAM} -e CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
     WORKING_DIRECTORY ${ZLOG_SOURCE_DIR}
     COMMENT "Original zlog makefile target")
 add_library(zlog STATIC IMPORTED)
