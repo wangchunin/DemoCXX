@@ -1,4 +1,30 @@
 cmake_minimum_required (VERSION 3.10)
+# 交叉编译相关
+# # 即你目标机target所在的操作系统名称，比如ARM或者Linux你就需要写"Linux",如果Windows平台你就写"Windows",如果你的嵌入式平台没有相关OS你即需要写成"Generic",只有当CMAKE_SYSTEM_NAME这个变量被设置了，CMake才认为此时正在交叉编译，它会额外设置一个变量CMAKE_CROSSCOMPILING为TRUE.
+# SET(CMAKE_SYSTEM_NAME Linux)
+
+# # 即C语言编译器，这里可以将变量设置成完整路径或者文件名，设置成完整路径有一个好处就是CMake会去这个路径下去寻找编译相关的其他工具比如linker,binutils等，如果你写的文件名带有arm-elf等等前缀，CMake会识别到并且去寻找相关的交叉编译器。
+# SET(CMAKE_C_COMPILER   /opt/arm/usr/bin/ppc_74xx-gcc)
+# SET(CMAKE_CXX_COMPILER /opt/arm/usr/bin/ppc_74xx-g++)
+
+# # 代表了一系列的相关文件夹路径的根路径的变更，比如你设置了/opt/arm/,所有的Find_xxx.cmake都会优先根据这个路径下的/usr/lib,/lib等进行查找，然后才会去你自己的/usr/lib和/lib进行查找，如果你有一些库是不被包含在/opt/arm里面的，你也可以显示指定多个值给CMAKE_FIND_ROOT_PATH,比如set(CMAKE_FIND_ROOT_PATH /opt/arm /opt/inst)
+# set(CMAKE_FIND_ROOT_PATH /opt/arm /opt/inst)
+# SET(CMAKE_FIND_ROOT_PATH  /opt/arm/ppc_74xx /home/rickk/arm_inst)
+
+# # 有三种取值，NEVER,ONLY,BOTH,第一个表示不在你CMAKE_FIND_ROOT_PATH下进行查找，第二个表示只在这个路径下查找，第三个表示先查找这个路径，再查找全局路径，对于这个变量来说，一般都是调用宿主机的程序，所以一般都设置成NEVER
+# SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+# # 对FIND_LIBRARY()起作用，表示在链接的时候的库的相关选项，因此这里需要设置成ONLY来保证我们的库是在交叉环境中找的.
+# SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+# # 对FIND_PATH()和FIND_FILE()起作用，一般来说也是ONLY,如果你想改变，一般也是在相关的FIND命令中增加option来改变局部设置，有NO_CMAKE_FIND_ROOT_PATH,ONLY_CMAKE_FIND_ROOT_PATH,BOTH_CMAKE_FIND_ROOT_PATH
+# SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+# # 对于Qt用户来说，需要更改相关的qmake命令切换成嵌入式版本，因此这里需要指定成相应的qmake路径（指定到qmake本身）
+# SET(QT_QMAKE_EXECUTABLE /opt/qt-embedded/qmake)
+# # 对于需要boost库的用户来说，相关的boost库路径配置也需要设置，因此这里的路径即ARM下的boost路径，里面有include和lib。
+# SET(BOOST_ROOT /opt/boost_arm)
+# cmake内置命令不区分大小写
+
+# 项目名称
 project (Tutorial)
 
 # The version number.
