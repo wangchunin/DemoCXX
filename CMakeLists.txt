@@ -28,10 +28,9 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE) # 存在上面一句，此句好像
 option (USE_ZLOG
         "Use tutorial provided math implementation" ON) 
 if (USE_ZLOG)
-  # 头文件和库文件是单独的
-  include_directories ("${PROJECT_SOURCE_DIR}/zlog_manager/zlog/src/")
-  link_directories("${PROJECT_SOURCE_DIR}/zlog_manager/zlog/src/")
   add_subdirectory (zlog_manager)
+  set (EXTRA_INCS ${EXTRA_INCS} ${ZLOG_INCLUDE_DIR})
+  message (">>> value = ${EXTRA_INCS}")
   set (EXTRA_LIBS ${EXTRA_LIBS} zlog_manager)
   message (">>> value = ${EXTRA_LIBS}")
 endif (USE_ZLOG)
@@ -51,6 +50,7 @@ endif (USE_MYMATH)
 # 头文件路径
 include_directories ("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/zlog_manager/")
+include_directories("${EXTRA_INCS}")
 # 因为是使用add_subdirectory的方式，所以库文件路径不用再加link_directories
 add_executable (Tutorial tutorial.cxx)
 target_link_libraries (Tutorial ${EXTRA_LIBS})
